@@ -14,6 +14,9 @@ namespace PortForwardingLivebox
     public partial class Form1 : Form
     {
         private static readonly HttpClient client = new HttpClient();
+        public static List<rulesList> rulesL = new List<rulesList>();
+
+        public static bool logged = false;
 
         public static string completeCookie;
         public static string sessionID;
@@ -35,21 +38,23 @@ namespace PortForwardingLivebox
             public static string TCPUDP_Id { get; } = "6,17";
         }
 
+        public class rulesList
+        {
+            public string Id { get; set; }
+            public string Ip { get; set; }
+        }
+
         public Form1()
         {
             InitializeComponent();
 
             comboBox1.SelectedIndex = 2; // TCP/UDP
-
-            url = "http://" + textBox8.Text + "/ws"; // URL
-            login = textBox2.Text; // LOGIN
-            pass = textBox1.Text; // PASSWORD
-
-            HttpPOSTlogin();
         }
 
         public async Task HttpPOSTlogin()
         {
+            if (logged) return;
+
             var body = new
             {
                 service = "sah.Device.Information",
@@ -63,6 +68,7 @@ namespace PortForwardingLivebox
 
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
 
+            client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", "X-Sah-Login");
 
             var response = await client.PostAsync(url, content);
@@ -80,10 +86,21 @@ namespace PortForwardingLivebox
                 label1.Text = "SessionID = " + sessionID;
             }
 
+            if (response.StatusCode.ToString() == "Unauthorized")
+            {
+                MessageBox.Show("Login or password incorect");
+                return;
+            } 
+            else
+            {
+                logged = true;
+                button4.Enabled = false;
+            }
+
             //CONTEXT ID
             var res = await response.Content.ReadAsStringAsync();
             var json = (JObject)JsonConvert.DeserializeObject(res);
-
+            
             contextID = json["data"]["contextID"].ToString();
 
             label2.Text = "contextID = " + contextID;
@@ -105,8 +122,8 @@ namespace PortForwardingLivebox
                 parameters = new
                 {
                     id = textBox3.Text,
-                    internalPort = textBox4.Text,
-                    externalPort = textBox5.Text,
+                    internalPort = numericUpDown1.Text,
+                    externalPort = numericUpDown2.Text,
                     destinationIPAddress = textBox7.Text,
                     enable = "true",
                     persistent = "true",
@@ -127,7 +144,35 @@ namespace PortForwardingLivebox
             var response = await client.PostAsync(url, content);
             var res = await response.Content.ReadAsStringAsync();
 
-            MessageBox.Show(res);
+            MessageBox.Show(res + " PORT ADDED");
+
+            HttpPOSTRefreshPortForwardingList();
+        }
+
+        public async Task HttpPOSTDeletePortForwarding()
+        {
+            var body = new
+            {
+                service = "Firewall",
+                method = "deletePortForwarding",
+                parameters = new
+                {
+                    id = rulesL[comboBox1.SelectedIndex].Id,
+                    destinationIPAddress = rulesL[comboBox1.SelectedIndex].Ip,
+                    origin = "webui",
+                }
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/x-sah-ws-4-call+json");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + contextID);
+            client.DefaultRequestHeaders.Add("Cookie", completeCookie);
+            client.DefaultRequestHeaders.Add("X-Context", contextID);
+
+            var response = await client.PostAsync(url, content);
+            var res = await response.Content.ReadAsStringAsync();
+
+            MessageBox.Show(res + " PORT DELETED");
 
             HttpPOSTRefreshPortForwardingList();
         }
@@ -135,6 +180,7 @@ namespace PortForwardingLivebox
         public async Task HttpPOSTRefreshPortForwardingList()
         {
             listBox1.Items.Clear();
+            rulesL.Clear();
 
             var body = new
             {
@@ -157,7 +203,7 @@ namespace PortForwardingLivebox
 
             var json = (JObject)JsonConvert.DeserializeObject(res);
 
-            foreach (var i in json["status"]) 
+            foreach (var i in json["status"])
             {
 
                 var NAME = i.First()["Description"];
@@ -178,6 +224,12 @@ namespace PortForwardingLivebox
                 {
                     protocol = PROTOCOL.TCPUDP_Id;
                 }
+
+                rulesL.Add(new rulesList 
+                { 
+                    Id = i.First()["Id"].ToString(), 
+                    Ip = i.First()["DestinationIPAddress"].ToString() 
+                });
 
                 listBox1.Items.Add("Name: " + NAME + 
                                    " Port interne: " + INTERNAL_PORT +
@@ -211,6 +263,20 @@ namespace PortForwardingLivebox
         private void button2_Click(object sender, EventArgs e)
         {
             HttpPOSTRefreshPortForwardingList();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            HttpPOSTDeletePortForwarding();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            url = "http://" + textBox8.Text + "/ws"; // URL
+            login = textBox2.Text; // LOGIN
+            pass = textBox1.Text; // PASSWORD
+
+            HttpPOSTlogin();
         }
     }
 }
