@@ -13,7 +13,7 @@ namespace PortForwardingLivebox
 {
     public partial class Form1 : Form
     {
-        private static readonly HttpClient client = new HttpClient();
+        public static readonly HttpClient client = new HttpClient();
         public static List<rulesList> rulesL = new List<rulesList>();
 
         public static bool logged = false;
@@ -49,68 +49,6 @@ namespace PortForwardingLivebox
             InitializeComponent();
 
             comboBox1.SelectedIndex = 2; // TCP/UDP
-        }
-
-        public async Task HttpPOSTlogin()
-        {
-            if (logged) return;
-
-            var body = new
-            {
-                service = "sah.Device.Information",
-                method = "createContext",
-                parameters = new { 
-                    applicationName = "webui", 
-                    username = login, 
-                    password = pass
-                }
-            };
-
-            var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Authorization", "X-Sah-Login");
-
-            var response = await client.PostAsync(url, content);
-
-            //SESSION ID
-            HttpHeaders headers = response.Headers;
-            IEnumerable<string> values;
-            if (headers.TryGetValues("Set-Cookie", out values))
-            {
-
-                sessionID = values.First();
-
-                sessionID = sessionID.Split(new string[] { "sessid=" }, StringSplitOptions.None).Last().Split(new string[] { ";" }, StringSplitOptions.None).First();
-
-                label1.Text = "SessionID = " + sessionID;
-            }
-
-            if (response.StatusCode.ToString() == "Unauthorized")
-            {
-                MessageBox.Show("Login or password incorect");
-                return;
-            } 
-            else
-            {
-                logged = true;
-                button4.Enabled = false;
-            }
-
-            //CONTEXT ID
-            var res = await response.Content.ReadAsStringAsync();
-            var json = (JObject)JsonConvert.DeserializeObject(res);
-            
-            contextID = json["data"]["contextID"].ToString();
-
-            label2.Text = "contextID = " + contextID;
-
-            //Complete cookie
-            completeCookie = "51a3cd15/accept-language=fr-FR,fr; UILang=fr; 51a3cd15/sessid=" + sessionID + "; sah/contextId=" + contextID + ";";
-
-            label3.Text = "cookie = " + completeCookie;
-
-            HttpPOSTRefreshPortForwardingList();
         }
 
         public async Task HttpPOSTAddPortForwarding()
@@ -270,13 +208,14 @@ namespace PortForwardingLivebox
             HttpPOSTDeletePortForwarding();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            url = "http://" + textBox8.Text + "/ws"; // URL
-            login = textBox2.Text; // LOGIN
-            pass = textBox1.Text; // PASSWORD
+            HttpPOSTRefreshPortForwardingList();
+        }
 
-            HttpPOSTlogin();
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

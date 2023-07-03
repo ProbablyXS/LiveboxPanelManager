@@ -1,7 +1,0 @@
-D:\LiveboxPanelManager\PortForwardingLivebox\bin\Release\PortForwardingLivebox.exe.config
-D:\LiveboxPanelManager\PortForwardingLivebox\bin\Release\PortForwardingLivebox.exe
-D:\LiveboxPanelManager\PortForwardingLivebox\obj\Release\PortForwardingLivebox.Form1.resources
-D:\LiveboxPanelManager\PortForwardingLivebox\obj\Release\PortForwardingLivebox.Properties.Resources.resources
-D:\LiveboxPanelManager\PortForwardingLivebox\obj\Release\PortForwardingLivebox.csproj.GenerateResource.cache
-D:\LiveboxPanelManager\PortForwardingLivebox\obj\Release\PortForwardingLivebox.csproj.CoreCompileInputs.cache
-D:\LiveboxPanelManager\PortForwardingLivebox\obj\Release\PortForwardingLivebox.exe
