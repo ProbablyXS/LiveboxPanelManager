@@ -17,6 +17,7 @@ namespace PortForwardingLivebox
         public static List<rulesList> rulesL = new List<rulesList>();
 
         public static bool logged = false;
+        public static bool function_started = false;
 
         public static string completeCookie;
         public static string sessionID;
@@ -52,6 +53,10 @@ namespace PortForwardingLivebox
 
         public async Task HttpPOSTAddPortForwarding()
         {
+
+            if (function_started) return;
+            function_started = true;
+
             var body = new
             {
                 service = "Firewall",
@@ -81,8 +86,6 @@ namespace PortForwardingLivebox
             var response = await client.PostAsync(url, content);
             var res = await response.Content.ReadAsStringAsync();
 
-            MessageBox.Show(res + " PORT ADDED");
-
             HttpPOSTRefreshPortForwardingList();
         }
 
@@ -108,8 +111,6 @@ namespace PortForwardingLivebox
 
             var response = await client.PostAsync(url, content);
             var res = await response.Content.ReadAsStringAsync();
-
-            MessageBox.Show(res + " PORT DELETED");
 
             HttpPOSTRefreshPortForwardingList();
         }
@@ -140,8 +141,6 @@ namespace PortForwardingLivebox
 
             var json = (JObject)JsonConvert.DeserializeObject(res);
 
-            var indexC = 0;
-
             foreach (var i in json["status"])
             {
 
@@ -168,37 +167,10 @@ namespace PortForwardingLivebox
                     i.First()["Id"].ToString(),
                     i.First()["DestinationIPAddress"].ToString()));
 
-                DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
-                btn.Text = "ez";
-                btn.Name = indexC.ToString();
-                btn.UseColumnTextForButtonValue = true; //dont forget this line
-                //btn.BackgroundImage = Properties.Resources.img_delete;
-                //btn.BackgroundImageLayout = ImageLayout.Zoom;
-                indexC += 1;
-                //btn.Click += new EventHandler(btnDelete);
-
                 dataGridView1.Rows.Add(NAME.ToString(), INTERNAL_PORT.ToString(), EXTERNAL_PORT.ToString(), protocol.ToString(), DESTINATIONIPADDRESS.ToString());
-
-                //for (int l = 0; l < 5; l++)
-                //{
-                //    var label = new Label();
-                //    label.Width = 120;
-                //    if (l == 0){ label.Text = NAME.ToString(); }
-                //    else if (l == 1){ label.Text = INTERNAL_PORT.ToString(); }
-                //    else if (l == 2){ label.Text = EXTERNAL_PORT.ToString(); }
-                //    else if (l == 3){ label.Text = protocol.ToString(); }
-                //    else if (l == 4){ label.Text = DESTINATIONIPADDRESS.ToString(); }
-                //}
-
-                //listview list = new listview(
-                //    NAME.ToString(),
-                //    INTERNAL_PORT.ToString(),
-                //    EXTERNAL_PORT.ToString(),
-                //    protocol.ToString(),
-                //    DESTINATIONIPADDRESS.ToString(), 
-                //    btn);
-                //x.Add(list);
             }
+
+            function_started = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -220,11 +192,6 @@ namespace PortForwardingLivebox
             {
                 protocolTcpUdp = protocolId[2];
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            HttpPOSTRefreshPortForwardingList();
         }
 
         private void Form1_Load(object sender, EventArgs e)
