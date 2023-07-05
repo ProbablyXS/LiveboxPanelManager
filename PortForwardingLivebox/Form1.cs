@@ -253,7 +253,7 @@ namespace PortForwardingLivebox
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewImageColumn)
             {
-                HttpPOSTDeletePortForwarding(Convert.ToInt32(senderGrid.Columns[e.RowIndex].Index));
+                HttpPOSTDeletePortForwarding(senderGrid.Columns[e.RowIndex].Index);
             }
         }
     }

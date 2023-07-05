@@ -101,6 +101,7 @@
             this.textBox1.Size = new System.Drawing.Size(216, 26);
             this.textBox1.TabIndex = 37;
             this.textBox1.UseSystemPasswordChar = true;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
             // 
             // panel1
             // 

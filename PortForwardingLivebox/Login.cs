@@ -138,7 +138,11 @@ namespace PortForwardingLivebox
 
         private void button1_Click(object sender, EventArgs e)
         {
+            save();
+        }
 
+        private void save()
+        {
             if (textBox1.Text.Length == 0)
             {
                 label4.Visible = true;
@@ -154,6 +158,14 @@ namespace PortForwardingLivebox
             label4.Visible = true;
             label4.ForeColor = Color.FromArgb(241, 110, 0);
             label4.Text = "Les informations ont été sauvegardé";
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                save();
+            }
         }
     }
 }
