@@ -61,8 +61,6 @@ namespace PortForwardingLivebox
 
             Form1.logged = true;
 
-            Form1 frm = new Form1();
-
             var body = new
             {
                 service = "sah.Device.Information",
@@ -81,6 +79,8 @@ namespace PortForwardingLivebox
             Form1.client.DefaultRequestHeaders.Add("Authorization", "X-Sah-Login");
 
             var response = await Form1.client.PostAsync(Form1.url, content);
+
+            Form1 frm = new Form1();
 
             //SESSION ID
             HttpHeaders headers = response.Headers;
