@@ -15,12 +15,26 @@ using System.IO;
 
 namespace PortForwardingLivebox
 {
-    public partial class Login : Form
+
+    public partial class LoginForm : Form
     {
+        public static readonly HttpClient client = new HttpClient();
+
+        public static bool logged = false;
+        public static bool function_started = false;
+
+        public static string completeCookie;
+        public static string sessionID;
+        public static string contextID;
+
+        public static string url;
+        public static string login;
+        public static string pass;
+
 
         private Ini INI = new Ini("param.ini");
 
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
 
@@ -47,9 +61,9 @@ namespace PortForwardingLivebox
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form1.url = "http://" + textBox3.Text + "/ws"; // URL
-            Form1.login = textBox2.Text; // LOGIN
-            Form1.pass = textBox1.Text; // PASSWORD
+            url = "http://" + textBox3.Text + "/ws"; // URL
+            login = textBox2.Text; // LOGIN
+            pass = textBox1.Text; // PASSWORD
 
             HttpPOSTlogin();
         }
@@ -57,9 +71,9 @@ namespace PortForwardingLivebox
 
         public async Task HttpPOSTlogin()
         {
-            if (Form1.logged) return;
+            if (logged) return;
 
-            Form1.logged = true;
+            logged = true;
 
             var body = new
             {
@@ -68,19 +82,17 @@ namespace PortForwardingLivebox
                 parameters = new
                 {
                     applicationName = "webui",
-                    username = Form1.login,
-                    password = Form1.pass
+                    username = login,
+                    password = pass
                 }
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
 
-            Form1.client.DefaultRequestHeaders.Clear();
-            Form1.client.DefaultRequestHeaders.Add("Authorization", "X-Sah-Login");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Authorization", "X-Sah-Login");
 
-            var response = await Form1.client.PostAsync(Form1.url, content);
-
-            Form1 frm = new Form1();
+            var response = await client.PostAsync(url, content);
 
             //SESSION ID
             HttpHeaders headers = response.Headers;
@@ -88,11 +100,9 @@ namespace PortForwardingLivebox
             if (headers.TryGetValues("Set-Cookie", out values))
             {
 
-                Form1.sessionID = values.First();
+                sessionID = values.First();
 
-                Form1.sessionID = Form1.sessionID.Split(new string[] { "sessid=" }, StringSplitOptions.None).Last().Split(new string[] { ";" }, StringSplitOptions.None).First();
-
-                frm.label1.Text = "SessionID = " + Form1.sessionID;
+                sessionID = sessionID.Split(new string[] { "sessid=" }, StringSplitOptions.None).Last().Split(new string[] { ";" }, StringSplitOptions.None).First();
             }
 
             if (response.StatusCode.ToString() == "Unauthorized")
@@ -100,12 +110,12 @@ namespace PortForwardingLivebox
                 label4.Visible = true;
                 label4.ForeColor = Color.Red;
                 label4.Text = "Nom d'utilisateur ou mot de passe incorrect";
-                Form1.logged = false;
+                logged = false;
                 return;
             }
             else
             {
-                Form1.logged = true;
+                logged = true;
                 button4.Enabled = false;
             }
 
@@ -113,15 +123,12 @@ namespace PortForwardingLivebox
             var res = await response.Content.ReadAsStringAsync();
             var json = (JObject)JsonConvert.DeserializeObject(res);
 
-            Form1.contextID = json["data"]["contextID"].ToString();
-
-            frm.label2.Text = "contextID = " + Form1.contextID;
+            contextID = json["data"]["contextID"].ToString();
 
             //Complete cookie
-            Form1.completeCookie = "51a3cd15/accept-language=fr-FR,fr; UILang=fr; 51a3cd15/sessid=" + Form1.sessionID + "; sah/contextId=" + Form1.contextID + ";";
+            completeCookie = "51a3cd15/accept-language=fr-FR,fr; UILang=fr; 51a3cd15/sessid=" + sessionID + "; sah/contextId=" + contextID + ";";
 
-            frm.label3.Text = "cookie = " + Form1.completeCookie;
-
+            AccueilForm frm = new AccueilForm();
             frm.Show();
             this.Hide();
         }

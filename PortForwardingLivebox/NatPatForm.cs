@@ -11,21 +11,9 @@ using System.Windows.Forms;
 
 namespace PortForwardingLivebox
 {
-    public partial class Form1 : Form
+    public partial class NatPatForm : Form
     {
-        public static readonly HttpClient client = new HttpClient();
         public static List<rulesList> rulesL = new List<rulesList>();
-
-        public static bool logged = false;
-        public static bool function_started = false;
-
-        public static string completeCookie;
-        public static string sessionID;
-        public static string contextID;
-
-        public static string url;
-        public static string login;
-        public static string pass;
 
         public static string protocolTcpUdp; // 6 = TCP, 17 = UDP
         public string[] protocolId = { "6", "17", "6,17" };
@@ -44,7 +32,7 @@ namespace PortForwardingLivebox
         }
 
 
-        public Form1()
+        public NatPatForm()
         {
             InitializeComponent();
 
@@ -54,8 +42,8 @@ namespace PortForwardingLivebox
         public async Task HttpPOSTAddPortForwarding()
         {
 
-            if (function_started) return;
-            function_started = true;
+            if (LoginForm.function_started) return;
+            LoginForm.function_started = true;
 
             var body = new
             {
@@ -78,12 +66,12 @@ namespace PortForwardingLivebox
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/x-sah-ws-4-call+json");
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + contextID);
-            client.DefaultRequestHeaders.Add("Cookie", completeCookie);
-            client.DefaultRequestHeaders.Add("X-Context", contextID);
+            LoginForm.client.DefaultRequestHeaders.Clear();
+            LoginForm.client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + LoginForm.contextID);
+            LoginForm.client.DefaultRequestHeaders.Add("Cookie", LoginForm.completeCookie);
+            LoginForm.client.DefaultRequestHeaders.Add("X-Context", LoginForm.contextID);
 
-            var response = await client.PostAsync(url, content);
+            var response = await LoginForm.client.PostAsync(LoginForm.url, content);
             var res = await response.Content.ReadAsStringAsync();
 
             HttpPOSTRefreshPortForwardingList();
@@ -104,12 +92,12 @@ namespace PortForwardingLivebox
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/x-sah-ws-4-call+json");
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + contextID);
-            client.DefaultRequestHeaders.Add("Cookie", completeCookie);
-            client.DefaultRequestHeaders.Add("X-Context", contextID);
+            LoginForm.client.DefaultRequestHeaders.Clear();
+            LoginForm.client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + LoginForm.contextID);
+            LoginForm.client.DefaultRequestHeaders.Add("Cookie", LoginForm.completeCookie);
+            LoginForm.client.DefaultRequestHeaders.Add("X-Context", LoginForm.contextID);
 
-            var response = await client.PostAsync(url, content);
+            var response = await LoginForm.client.PostAsync(LoginForm.url, content);
             var res = await response.Content.ReadAsStringAsync();
 
             HttpPOSTRefreshPortForwardingList();
@@ -131,12 +119,12 @@ namespace PortForwardingLivebox
             };
 
             var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/x-sah-ws-4-call+json");
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + contextID);
-            client.DefaultRequestHeaders.Add("Cookie", completeCookie);
-            client.DefaultRequestHeaders.Add("X-Context", contextID);
+            LoginForm.client.DefaultRequestHeaders.Clear();
+            LoginForm.client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + LoginForm.contextID);
+            LoginForm.client.DefaultRequestHeaders.Add("Cookie", LoginForm.completeCookie);
+            LoginForm.client.DefaultRequestHeaders.Add("X-Context", LoginForm.contextID);
 
-            var response = await client.PostAsync(url, content);
+            var response = await LoginForm.client.PostAsync(LoginForm.url, content);
             var res = await response.Content.ReadAsStringAsync();
 
             var json = (JObject)JsonConvert.DeserializeObject(res);
@@ -170,7 +158,7 @@ namespace PortForwardingLivebox
                 dataGridView1.Rows.Add(NAME.ToString(), INTERNAL_PORT.ToString(), EXTERNAL_PORT.ToString(), protocol.ToString(), DESTINATIONIPADDRESS.ToString());
             }
 
-            function_started = false;
+            LoginForm.function_started = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
