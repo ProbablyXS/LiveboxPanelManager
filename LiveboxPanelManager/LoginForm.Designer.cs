@@ -1,4 +1,4 @@
-﻿namespace PortForwardingLivebox
+﻿namespace LiveboxPanelManager
 {
     partial class LoginForm
     {
@@ -125,7 +125,7 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::PortForwardingLivebox.Properties.Resources.img_save;
+            this.button1.BackgroundImage = global::LiveboxPanelManager.Properties.Resources.img_save;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -165,7 +165,7 @@
             // 
             // pictureBox3
             // 
-            this.pictureBox3.BackgroundImage = global::PortForwardingLivebox.Properties.Resources.img_ip;
+            this.pictureBox3.BackgroundImage = global::LiveboxPanelManager.Properties.Resources.img_ip;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox3.Location = new System.Drawing.Point(49, 90);
             this.pictureBox3.Name = "pictureBox3";
@@ -188,7 +188,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackgroundImage = global::PortForwardingLivebox.Properties.Resources.img_password;
+            this.pictureBox2.BackgroundImage = global::LiveboxPanelManager.Properties.Resources.img_password;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox2.Location = new System.Drawing.Point(49, 166);
             this.pictureBox2.Name = "pictureBox2";
@@ -199,7 +199,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::PortForwardingLivebox.Properties.Resources.img_login;
+            this.pictureBox1.BackgroundImage = global::LiveboxPanelManager.Properties.Resources.img_login;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Location = new System.Drawing.Point(49, 128);
             this.pictureBox1.Name = "pictureBox1";
@@ -241,7 +241,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImage = global::PortForwardingLivebox.Properties.Resources.bg_login;
+            this.BackgroundImage = global::LiveboxPanelManager.Properties.Resources.bg_login;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(636, 468);
             this.Controls.Add(this.label3);

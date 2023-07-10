@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PortForwardingLivebox
+namespace LiveboxPanelManager
 {
     public partial class NatPatForm : Form
     {
@@ -163,6 +163,11 @@ namespace PortForwardingLivebox
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox3.TextLength == 0 || textBox7.TextLength == 0) 
+            {
+                MessageBox.Show("Insérer une valeur !");
+                return;
+            }
             HttpPOSTAddPortForwarding();
         }
 
@@ -189,7 +194,8 @@ namespace PortForwardingLivebox
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            var frm = Owner as AccueilForm;
+            frm.Show();
         }
 
         private void button1_MouseEnter(object sender, EventArgs e)

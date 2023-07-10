@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PortForwardingLivebox
+namespace LiveboxPanelManager
 {
     public partial class AccueilForm : Form
     {
@@ -19,6 +19,9 @@ namespace PortForwardingLivebox
         public static bool IPTVStatus = false;
         public static bool VOIPStatus = false;
         public static bool WIFIStatus = false;
+        public static bool WIFIInviteStatus = false;
+        public static bool WIFIPlanificateurStatus = false;
+        public static bool MonAccesADistance = false;
 
         public static bool _Loading = true;
         public bool Loading
@@ -48,6 +51,10 @@ namespace PortForwardingLivebox
         public async Task HttpPOSTGetAllInfo()
         {
             //GET WAN
+
+            label2.Text = "Obtention information IPTV en cours";
+            await Task.Delay(100);
+
             var body = new
             {
                 service = "NMC",
@@ -76,6 +83,10 @@ namespace PortForwardingLivebox
             }
 
             //GET IPTV
+
+            label2.Text = "Obtention information IPTV en cours";
+            await Task.Delay(100);
+
             body = new
             {
                 service = "NMC.OrangeTV",
@@ -104,6 +115,10 @@ namespace PortForwardingLivebox
             }
 
             //GET VOIP
+
+            label2.Text = "Obtention information VOIP en cours";
+            await Task.Delay(100);
+
             var bodyWParam = new
             {
                 service = "NeMo.Intf.voip",
@@ -137,6 +152,10 @@ namespace PortForwardingLivebox
             }
 
             //GET WIFI
+
+            label2.Text = "Obtention information WIFI en cours";
+            await Task.Delay(100);
+
             body = new
             {
                 service = "NMC.Wifi",
@@ -166,6 +185,8 @@ namespace PortForwardingLivebox
 
 
             //STOP LOADING
+            label2.Text = "";
+            await Task.Delay(100);
             Loading = false;
 
         }
@@ -174,6 +195,7 @@ namespace PortForwardingLivebox
         {
             Button btn = (Button)sender;
 
+            //Group1
             if (btn.Name == button1.Name)
             {
                 label2.Text = "Mes équipements connectés";
@@ -198,9 +220,76 @@ namespace PortForwardingLivebox
                 if (WIFIStatus) { label2.Text = "Wi-Fi activé"; }
                 else { label2.Text = "Wi-Fi désactivé"; }
             }
+            else if (btn.Name == button7.Name)
+            {
+                if (WIFIInviteStatus) { label2.Text = "Wi-Fi invité activé"; }
+                else { label2.Text = "Wi-Fi invité désactivé"; }
+            }
+            else if (btn.Name == button6.Name)
+            {
+                if (WIFIPlanificateurStatus) { label2.Text = "Planificateur Wi-Fi activé"; }
+                else { label2.Text = "Planificateur Wi-Fi désactivé"; }
+            }
+            else if (btn.Name == button5.Name)
+            {
+                label2.Text = "Historique des connexions";
+            }
+
+            //Group2
+            else if (btn.Name == button16.Name)
+            {
+                label2.Text = "Connexion";
+            }
+            else if (btn.Name == button15.Name)
+            {
+                if (MonAccesADistance) { label2.Text = "Mon accès à distance activé"; }
+                else { label2.Text = "Mon accès à distance inactivé"; }
+            }
+            else if (btn.Name == button14.Name)
+            {
+                label2.Text = "Langue";
+            }
             else if (btn.Name == button13.Name)
             {
                 label2.Text = "Réseau";
+            }
+            else if (btn.Name == button12.Name)
+            {
+                label2.Text = "Pare-feu";
+            }
+            else if (btn.Name == button11.Name)
+            {
+                label2.Text = "Sauvegarder et restaurer";
+            }
+            else if (btn.Name == button10.Name)
+            {
+                label2.Text = "Informations système";
+            }
+            else if (btn.Name == button9.Name)
+            {
+                label2.Text = "Mot de passe";
+            }
+
+            //Group3
+            else if (btn.Name == button24.Name)
+            {
+                label2.Text = "Accès assistance";
+            }
+            else if (btn.Name == button20.Name)
+            {
+                label2.Text = "Mise à jour Livebox";
+            }
+            else if (btn.Name == button22.Name)
+            {
+                label2.Text = "Diagnostic";
+            }
+            else if (btn.Name == button21.Name)
+            {
+                label2.Text = "Réinitialiser";
+            }
+            else if (btn.Name == button23.Name)
+            {
+                label2.Text = "Redémarrer";
             }
         }
 
@@ -219,13 +308,18 @@ namespace PortForwardingLivebox
             frm.label2.Text = "contextID = " + LoginForm.contextID;
             frm.label3.Text = "cookie = " + LoginForm.completeCookie;
 
-            frm.Show();
+            frm.Show(this);
             this.Hide();
         }
 
         private void AccueilForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label2.Text = "En cours de production";
         }
     }
 }

@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="bg_login" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\bg_login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_wifi" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_wifi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="img_login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,52 +127,94 @@
   <data name="img_wifi_planif" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_wifi_planif.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Newtonsoft_Json" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dll\Newtonsoft.Json.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="img_wifi" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_wifi.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_password" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_password.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_phone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_phone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_reseau" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_reseau.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_ip" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_ip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_historique_connexion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_historique_connexion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="img_equipements" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_equipements.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="img_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_ip" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_ip.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="img_internet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_internet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_wifi_invite" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_wifi_invite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="img_historique_connexion" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_historique_connexion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="img_param" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_param.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="img_reseau_natpat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_reseau_natpat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_phone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_phone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_password" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_password.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_diag" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_diag.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_mot_de_passe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_mot_de_passe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_access_distance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_access_distance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_reseau" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_reseau.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_wifi_invite" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_wifi_invite.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_distance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_distance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="img_tele" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\img\img_tele.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="img_reseau_natpat" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\img\img_reseau_natpat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="img_language" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_languge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Newtonsoft_Json" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dll\Newtonsoft.Json.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="img_info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_reinialisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_reinialisation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\logo_128.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_depa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_depa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_internet" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_internet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bg_login" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\bg_login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_sauvegarde_system" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_sauvegarde_system.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_firewall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_firewall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_connexion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_connexion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_redemarrage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\img\img_redemarrage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

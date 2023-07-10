@@ -1,4 +1,4 @@
-﻿namespace PortForwardingLivebox
+﻿namespace LiveboxPanelManager
 {
     partial class NatPatForm
     {
@@ -310,7 +310,7 @@
             // Column6
             // 
             this.Column6.HeaderText = "";
-            this.Column6.Image = global::PortForwardingLivebox.Properties.Resources.img_delete;
+            this.Column6.Image = global::LiveboxPanelManager.Properties.Resources.img_delete;
             this.Column6.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace PortForwardingLivebox
+namespace LiveboxPanelManager
 {
 
     public partial class LoginForm : Form

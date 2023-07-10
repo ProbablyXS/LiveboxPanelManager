@@ -3,7 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace PortForwardingLivebox
+namespace LiveboxPanelManager
 {
     static class Program
     {
@@ -12,7 +12,7 @@ namespace PortForwardingLivebox
         /// </summary>
         [STAThread]
         static void Main()
-        {
+       {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, bargs) =>
             {
                 String dllName = new AssemblyName(bargs.Name).Name + ".dll";
