@@ -14,6 +14,7 @@ namespace LiveboxPanelManager
     public partial class NatPatForm : Form
     {
         public static List<rulesList> rulesL = new List<rulesList>();
+        public static List<equipementsList> equipementsL = new List<equipementsList>();
 
         public static string protocolTcpUdp; // 6 = TCP, 17 = UDP
         public string[] protocolId = { "6", "17", "6,17" };
@@ -31,19 +32,53 @@ namespace LiveboxPanelManager
             }
         }
 
+        public class equipementsList
+        {
+            public string Name { get; set; }
+            public string Ip { get; set; }
+
+            public equipementsList(string name, string ip)
+            {
+                this.Name = name;
+                this.Ip = ip;
+            }
+        }
+
+        public bool _Loading = true;
+        public bool Loading
+        {
+            get { return _Loading; }
+            set { _Loading = value; LoadingState(); }
+        }
+
+        protected virtual async Task LoadingState()
+        {
+
+            if (Loading)
+            {
+                pictureBox2.Enabled = true;
+                pictureBox2.Visible = true;
+            }
+            else
+            {
+                pictureBox2.Enabled = false;
+                pictureBox2.Visible = false;
+            }
+        }
 
         public NatPatForm()
         {
             InitializeComponent();
 
             comboBox1.SelectedIndex = 2; // TCP/UDP
+
         }
 
         public async Task HttpPOSTAddPortForwarding()
         {
 
-            if (LoginForm.function_started) return;
-            LoginForm.function_started = true;
+            if (Loading) return;
+            Loading = true;
 
             var body = new
             {
@@ -54,7 +89,7 @@ namespace LiveboxPanelManager
                     id = textBox3.Text,
                     internalPort = numericUpDown1.Text,
                     externalPort = numericUpDown2.Text,
-                    destinationIPAddress = textBox7.Text,
+                    destinationIPAddress = equipementsL.Where(x => x.Name.Contains(comboBox2.Text)).FirstOrDefault().Ip.ToString(),
                     enable = "true",
                     persistent = "true",
                     protocol = protocolTcpUdp,
@@ -79,6 +114,8 @@ namespace LiveboxPanelManager
 
         public async Task HttpPOSTDeletePortForwarding(int indexC)
         {
+            Loading = true;
+
             var body = new
             {
                 service = "Firewall",
@@ -158,14 +195,64 @@ namespace LiveboxPanelManager
                 dataGridView1.Rows.Add(NAME.ToString(), INTERNAL_PORT.ToString(), EXTERNAL_PORT.ToString(), protocol.ToString(), DESTINATIONIPADDRESS.ToString());
             }
 
-            LoginForm.function_started = false;
+            Loading = false;
+        }
+
+        public async Task HttpPOSTRefreshEquipementList()
+        {
+            var body = new
+            {
+                service = "Devices",
+                method = "get",
+                parameters = new
+                {
+                    ETHERNET = "not interface and not self and eth",
+                    WIFI = "not interface and not self and wifi",
+                }
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/x-sah-ws-4-call+json");
+            LoginForm.client.DefaultRequestHeaders.Clear();
+            LoginForm.client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + LoginForm.contextID);
+            LoginForm.client.DefaultRequestHeaders.Add("Cookie", LoginForm.completeCookie);
+            LoginForm.client.DefaultRequestHeaders.Add("X-Context", LoginForm.contextID);
+
+            var response = await LoginForm.client.PostAsync(LoginForm.url, content);
+            var res = await response.Content.ReadAsStringAsync();
+
+            var json = (JObject)JsonConvert.DeserializeObject(res);
+
+            foreach (var i in json["status"])
+            {
+                try
+                {
+
+                    var NAME = i["Name"];
+                    var IPADDRESS = i["IPAddress"];
+
+                    if (NAME == null || IPADDRESS == null ||
+                        ((JValue)NAME).Value == "" || ((JValue)IPADDRESS).Value == ""
+                        || NAME.ToString() == "lan" || NAME.ToString() == "guest") continue;
+
+                    comboBox2.Items.Add(NAME.ToString());
+
+                    equipementsL.Add(new equipementsList(
+                        NAME.ToString(),
+                        IPADDRESS.ToString()));
+
+                }
+                catch { }
+            }
+
+            comboBox2.SelectedIndex = 0;
+
+            HttpPOSTRefreshPortForwardingList();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox3.TextLength == 0 || textBox7.TextLength == 0) 
+            if (textBox3.TextLength == 0 || comboBox2.Text.Length == 0 || Loading)
             {
-                MessageBox.Show("Insérer une valeur !");
                 return;
             }
             HttpPOSTAddPortForwarding();
@@ -189,7 +276,7 @@ namespace LiveboxPanelManager
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            HttpPOSTRefreshPortForwardingList();
+            HttpPOSTRefreshEquipementList();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

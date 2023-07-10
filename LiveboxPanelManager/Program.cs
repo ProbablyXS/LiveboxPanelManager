@@ -12,7 +12,7 @@ namespace LiveboxPanelManager
         /// </summary>
         [STAThread]
         static void Main()
-       {
+        {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, bargs) =>
             {
                 String dllName = new AssemblyName(bargs.Name).Name + ".dll";

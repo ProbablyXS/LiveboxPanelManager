@@ -2,16 +2,14 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace LiveboxPanelManager
 {
@@ -21,7 +19,6 @@ namespace LiveboxPanelManager
         public static readonly HttpClient client = new HttpClient();
 
         public static bool logged = false;
-        public static bool function_started = false;
 
         public static string completeCookie;
         public static string sessionID;

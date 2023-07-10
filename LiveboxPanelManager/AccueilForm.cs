@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +19,7 @@ namespace LiveboxPanelManager
         public static bool WIFIPlanificateurStatus = false;
         public static bool MonAccesADistance = false;
 
-        public static bool _Loading = true;
+        public bool _Loading = true;
         public bool Loading
         {
             get { return _Loading; }
