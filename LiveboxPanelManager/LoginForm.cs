@@ -25,6 +25,7 @@ namespace LiveboxPanelManager
         public static string contextID;
 
         public static string url;
+        public static string ip;
         public static string login;
         public static string pass;
 
@@ -59,6 +60,7 @@ namespace LiveboxPanelManager
         private void button4_Click(object sender, EventArgs e)
         {
             url = "http://" + textBox3.Text + "/ws"; // URL
+            ip = textBox3.Text; // IP
             login = textBox2.Text; // LOGIN
             pass = textBox1.Text; // PASSWORD
 

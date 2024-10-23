@@ -155,7 +155,7 @@
             // 
             this.label4.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(31, 204);
+            this.label4.Location = new System.Drawing.Point(25, 204);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(299, 19);
             this.label4.TabIndex = 42;
@@ -236,7 +236,7 @@
             this.label3.Text = "Lundi 03 juillet";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Login
+            // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -251,7 +251,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(652, 507);
             this.MinimumSize = new System.Drawing.Size(500, 490);
-            this.Name = "Login";
+            this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Identification - Livebox";
             this.panel1.ResumeLayout(false);

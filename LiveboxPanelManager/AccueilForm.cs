@@ -3,7 +3,9 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Drawing;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -313,9 +315,60 @@ namespace LiveboxPanelManager
             Application.Exit();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            label2.Text = "En cours de production";
+            var dialogResult = MessageBox.Show(
+    "Are you sure you want to reboot the Livebox?",
+    "Confirm Reboot",
+    MessageBoxButtons.YesNo,
+    MessageBoxIcon.Question
+);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                pictureBox2.Enabled = true;
+                pictureBox2.Visible = true;
+
+                bool result = await RebootLiveboxAsync();
+
+                if (result)
+                {
+                    pictureBox2.Enabled = true;
+                    pictureBox2.Visible = true;
+                }
+                else
+                {
+                    pictureBox2.Enabled = false;
+                    pictureBox2.Visible = false;
+                }
+
+                MessageBox.Show(result ? "Rebooting..." : "!!! Reboot failed !!!");
+            }
+        }
+
+        private static async Task<bool> RebootLiveboxAsync()
+        {
+            using (var httpClient = new HttpClient())
+            {
+                // Set default request headers
+                LoginForm.client.DefaultRequestHeaders.Clear();
+                LoginForm.client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", "X-Sah " + LoginForm.contextID);
+                LoginForm.client.DefaultRequestHeaders.Add("Cookie", LoginForm.completeCookie);
+                LoginForm.client.DefaultRequestHeaders.Add("X-Context", LoginForm.contextID);
+
+                // Reboot the Livebox
+                var rebootContent = new StringContent(
+                    $"{{\"service\":\"NMC\",\"method\":\"reboot\",\"parameters\":{{\"reason\":\"GUI_Reboot\"}}}}",
+                    System.Text.Encoding.UTF8,
+                    "application/x-sah-ws-4-call+json"
+                );
+
+
+                var rebootResponse = await LoginForm.client.PostAsync($"http://{LoginForm.ip}/ws", rebootContent);
+                var rebootResponseBody = await rebootResponse.Content.ReadAsStringAsync();
+
+                return rebootResponseBody.Contains("true");
+            }
         }
     }
 }
